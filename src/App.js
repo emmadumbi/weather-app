@@ -1,10 +1,10 @@
 import "./style.css";
 import header from "../components/Header";
-import search from "../components/Search";
+import main from "../components/Main";
 
 document.querySelector("#app").innerHTML = `
- <main class="main">
+ <div>
     ${header()}
-    ${search()}
- </main>
+    ${main()}
+ </div>
 `;

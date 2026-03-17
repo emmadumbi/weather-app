@@ -59,7 +59,8 @@ h1 {
   font-family: var(--font-bricolage);
 }
 
-.main {
+header,
+main {
   width: 90%;
   margin-inline: auto;
   max-width: 1000px;
