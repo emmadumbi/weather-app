@@ -41,8 +41,10 @@
 
   --orange-500: hsl(28, 100%, 52%);
 
-  --Blue-500: hsl(233, 67%, 56%);
-  --Blue-700: hsl(248, 70%, 36%);
+  --color-blue-500: hsl(233, 67%, 56%);
+  --color-blue-700: hsl(248, 70%, 36%);
+
+  --radius-small: 12px;
 }
 
 * {
@@ -64,4 +66,22 @@ main {
   width: 90%;
   margin-inline: auto;
   max-width: 1000px;
+}
+
+.current_city-card {
+  background-image: url("../src/assets/images/bg-today-small.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding-block: 35px;
+  padding-inline: 20px;
+  margin-block-start: 2rem;
+  border-radius: 20px;
+}
+
+.two_col-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-block-start: 1.2rem;
 }
