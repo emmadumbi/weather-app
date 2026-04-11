@@ -16,7 +16,7 @@ export default function search() {
       </div>
     </div>
     
-    <button type="submit" class="bg-blue-500 rounded-small py-3 text-[20px] ">
+    <button type="submit" id="search-btn" class="bg-blue-500 rounded-small py-3 text-[20px] ">
       Search
     </button>
   </section>

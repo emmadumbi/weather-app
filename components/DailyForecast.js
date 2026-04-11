@@ -1,4 +1,16 @@
 import DrizzleIcon from "../src/assets/images/icon-drizzle.webp";
+// import weatherdata from "../src/api/WeatherData";
+
+// const data = await weatherdata();
+
+// const { temperature_2m_max, temperature_2m_min, time, weather_code } =
+//   data.daily;
+
+// const dailyInfos = time.map((date, i) => {
+//   const formateDate = new Date(date).toLocaleDateString("en-US", {
+//     weekday: "short",
+//   });
+// });
 
 export default function dailyforecast() {
   return /*html*/ `
