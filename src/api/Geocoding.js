@@ -1,4 +1,4 @@
-const city = "abbi";
+const city = "abuja";
 export default async function geocoding() {
   const res = await fetch(
     `https://geocoding-api.open-meteo.com/v1/search?name=${city}`,
