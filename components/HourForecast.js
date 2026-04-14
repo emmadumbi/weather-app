@@ -1,4 +1,37 @@
 import SnowIcon from "../src/assets/images/icon-snow.webp";
+import weatherdata from "../src/api/WeatherData";
+
+const data = await weatherdata();
+
+console.log(data.hourly);
+
+const { time, temperature_2m } = data.hourly;
+
+const currentDay = time.slice(0, 24);
+
+function roundUp(value) {
+  const roundeValue = Math.round(value);
+  return roundeValue;
+}
+
+const eachHour = currentDay
+  .map((hours, index) => {
+    const date = new Date(hours);
+    const currentHour = date.toLocaleTimeString([], {
+      hour: "numeric",
+    });
+
+    return /*html*/ `
+    <div class="flex items-center justify-between  bg-myneutral-600 p-2.5 rounded-small">
+      <div class="flex items-center gap-x-2">
+        <img src="${SnowIcon}" alt="" width="40" height="40">
+        <p class="text-[20px] font-medium">${currentHour}</p>
+      </div>
+      <p>${roundUp(temperature_2m[index])}&deg;</p>
+    </div>
+  `;
+  })
+  .join("");
 
 export default function hourforecast() {
   return /*html*/ `
@@ -7,70 +40,7 @@ export default function hourforecast() {
                 <h4 class="text-[20px] font-medium">Hourly forecast</h4>
                 <div class="bg-myneutral-600 py-1.5 px-5 rounded-small"><span>Tuesday</span> <span>&UpArrowDownArrow;</span></div>
             </div>
-
-            <div class="flex items-center justify-between  bg-myneutral-600 p-2.5 rounded-small">
-                <div class="flex items-center gap-x-2">
-                    <img src="${SnowIcon}" alt="" width="40" height="40">
-                    <p class="text-[20px] font-medium">3 <span>PM</span></p>
-                </div>
-                <p>68&deg;</p>
-            </div>
-            
-            <div class="flex items-center justify-between  bg-myneutral-600 p-2.5 rounded-small">
-                <div class="flex items-center gap-x-2">
-                    <img src="${SnowIcon}" alt="" width="40" height="40">
-                    <p class="text-[20px] font-medium">3 <span>PM</span></p>
-                </div>
-                <p>68&deg;</p>
-            </div>
-
-            <div class="flex items-center justify-between  bg-myneutral-600 p-2.5 rounded-small">
-                <div class="flex items-center gap-x-2">
-                    <img src="${SnowIcon}" alt="" width="40" height="40">
-                    <p class="text-[20px] font-medium">3 <span>PM</span></p>
-                </div>
-                <p>68&deg;</p>
-            </div>
-
-            <div class="flex items-center justify-between  bg-myneutral-600 p-2.5 rounded-small">
-                <div class="flex items-center gap-x-2">
-                    <img src="${SnowIcon}" alt="" width="40" height="40">
-                    <p class="text-[20px] font-medium">3 <span>PM</span></p>
-                </div>
-                <p>68&deg;</p>
-            </div>
-
-            <div class="flex items-center justify-between  bg-myneutral-600 p-2.5 rounded-small">
-                <div class="flex items-center gap-x-2">
-                    <img src="${SnowIcon}" alt="" width="40" height="40">
-                    <p class="text-[20px] font-medium">3 <span>PM</span></p>
-                </div>
-                <p>68&deg;</p>
-            </div>
-
-            <div class="flex items-center justify-between  bg-myneutral-600 p-2.5 rounded-small">
-                <div class="flex items-center gap-x-2">
-                    <img src="${SnowIcon}" alt="" width="40" height="40">
-                    <p class="text-[20px] font-medium">3 <span>PM</span></p>
-                </div>
-                <p>68&deg;</p>
-            </div>
-
-            <div class="flex items-center justify-between  bg-myneutral-600 p-2.5 rounded-small">
-                <div class="flex items-center gap-x-2">
-                    <img src="${SnowIcon}" alt="" width="40" height="40">
-                    <p class="text-[20px] font-medium">3 <span>PM</span></p>
-                </div>
-                <p>68&deg;</p>
-            </div>
-
-            <div class="flex items-center justify-between  bg-myneutral-600 p-2.5 rounded-small">
-                <div class="flex items-center gap-x-2">
-                    <img src="${SnowIcon}" alt="" width="40" height="40">
-                    <p class="text-[20px] font-medium">3 <span>PM</span></p>
-                </div>
-                <p>68&deg;</p>
-            </div>
+            ${eachHour}
         </section>
     `;
 }
