@@ -1,19 +1,15 @@
-import DrizzleIcon from "../src/assets/images/icon-drizzle.webp";
 import weatherdata from "../src/api/WeatherData";
+import { getWeatherIcon, roundUpValue } from "../src/utils/utils";
 
 const data = await weatherdata();
 
 console.log(data);
 
-const { temperature_2m_max, temperature_2m_min, time } = data.daily;
-
-function roundUp(value) {
-  const roundeValue = Math.round(value);
-  return roundeValue;
-}
+const { temperature_2m_max, temperature_2m_min, time, weather_code } =
+  data.daily;
 
 const weatherCard = time
-  .map((date, index) => {
+  .map((date, i) => {
     const day = new Date(date).toLocaleDateString("en-US", {
       weekday: "short",
     });
@@ -22,11 +18,11 @@ const weatherCard = time
         <div class="bg-myneutral-800 flex flex-col items-center rounded-small px-2 pt-3 space-y-3 pb-4">
             <p class="text-[18px]">${day}</p>
             <span>
-                <img src="${DrizzleIcon}" alt="" width="60" height="60"> 
+                <img src="${getWeatherIcon(weather_code[i])}" alt="" width="60" height="60"> 
             </span>
             <div class="flex justify-between w-full">
-                <p><span>${roundUp(temperature_2m_max[index])}</span>&deg;</p>
-                <p><span>${roundUp(temperature_2m_min[index])}</span>&deg;</p>
+                <p><span>${roundUpValue(temperature_2m_max[i])}</span>&deg;</p>
+                <p><span>${roundUpValue(temperature_2m_min[i])}</span>&deg;</p>
             </div>
         </div>
     `;

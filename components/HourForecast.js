@@ -1,24 +1,20 @@
-import SnowIcon from "../src/assets/images/icon-snow.webp";
 import weatherdata from "../src/api/WeatherData";
+import { getWeatherIcon, roundUpValue, formatDay } from "../src/utils/utils";
 
 const data = await weatherdata();
 
-const { time, temperature_2m } = data.hourly;
+const { time, temperature_2m, weather_code } = data.hourly;
 
 const currentDay = data.current;
 
-const today = new Date(currentDay.time).toLocaleDateString("en-US", {
-  weekday: "long",
-});
+const today = formatDay(currentDay.time);
 
 const daysOfWeek = {};
 
 //loops through time object for each day & create an object for each day with its corresponding hours and temp
 function setDays() {
   time.forEach((t, i) => {
-    const day = new Date(t).toLocaleDateString("en-US", {
-      weekday: "long",
-    });
+    const day = formatDay(t);
 
     const hour = new Date(t).toLocaleTimeString([], {
       hour: "numeric",
@@ -30,19 +26,21 @@ function setDays() {
 
     daysOfWeek[day].push({
       hour,
-      temp: Math.round(temperature_2m[i]),
+      temp: roundUpValue(temperature_2m[i]),
+      code: weather_code[i],
     });
   });
 }
 setDays();
 
+//update the days of the week weather infos component, default value on load is current day
 function updateDayCard(day = today) {
   return daysOfWeek[day]
     .map((key) => {
       return /*html*/ `
     <div class="flex  items-center justify-between  bg-myneutral-600 p-2.5 rounded-small">
       <div class="flex items-center gap-x-2">
-        <img src="${SnowIcon}" alt="" width="40" height="40">
+        <img src="${getWeatherIcon(key.code)}" alt="" width="40" height="40">
         <p class="text-[20px] font-medium">${key.hour}</p>
       </div>
       <p>${key.temp}&deg;</p>

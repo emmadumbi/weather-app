@@ -2,6 +2,7 @@ import dailyforecast from "./DailyForecast";
 import sunIcon from "../src/assets/images/icon-sunny.webp";
 import geocoding from "../src/api/Geocoding";
 import weatherdata from "../src/api/WeatherData";
+import { roundUpValue } from "../src/utils/utils";
 
 const { name, country } = await geocoding();
 const data = await weatherdata();
@@ -14,11 +15,6 @@ const {
   wind_speed_10m,
   time,
 } = data.current;
-
-function roundUp(value) {
-  const roundedValue = Math.round(value);
-  return roundedValue;
-}
 
 const formateDate = new Date(time).toLocaleDateString("en-US", {
   weekday: "long",
@@ -37,32 +33,32 @@ export default function currentcity() {
                 </div> 
                 <div class="flex items-center gap-5">
                     <img src="${sunIcon}" alt="" width="120" height="120">
-                    <div class="text-[96px] italic font-bold"><span>${roundUp(temperature_2m)}</span>&deg;</div>
+                    <div class="text-[96px] italic font-bold"><span>${roundUpValue(temperature_2m)}</span>&deg;</div>
                 </div>
             </div>
             <div class="two_col-grid">
                 <div class="bg-myneutral-800 px-5 pt-5 pb-4 rounded-small">
                     <p class="text-[18px]">Feels Like</p>
                     <div class="text-[30px] font-light mt-3">
-                        <span>${roundUp(apparent_temperature)}</span>&deg;
+                        <span>${roundUpValue(apparent_temperature)}</span>&deg;
                     </div>
                 </div>
                 <div class="bg-myneutral-800 px-5 pt-5 pb-4 rounded-small">
                     <p class="text-[18px]">Humidity</p>
                     <div class="text-[30px] font-light mt-3">
-                        <span>${roundUp(relative_humidity_2m)}</span>&percnt;
+                        <span>${roundUpValue(relative_humidity_2m)}</span>&percnt;
                     </div>
                 </div>
                 <div class="bg-myneutral-800 px-5 pt-5 pb-4 rounded-small">
                     <p class="text-[18px]">Wind</p>
                     <div class="text-[30px] font-light mt-3">
-                        <span>${roundUp(wind_speed_10m)}</span> mph
+                        <span>${roundUpValue(wind_speed_10m)}</span> mph
                     </div>
                 </div>
                 <div class="bg-myneutral-800 px-5 pt-5 pb-4 rounded-small">
                     <p class="text-[18px]">Precipitation</p>
                     <div class="text-[30px] font-light mt-3">
-                        <span>${roundUp(precipitation)}</span> in
+                        <span>${roundUpValue(precipitation)}</span> in
                     </div>
                 </div>
             </div>
