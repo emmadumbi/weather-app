@@ -51,13 +51,11 @@ export function getWeatherIcon(code) {
 }
 
 export function roundUpValue(value) {
-  const roundeValue = Math.round(value);
-  return roundeValue;
+  return Math.round(value);
 }
 
 export function formatDay(day) {
-  const formatedDay = new Date(day).toLocaleDateString("en-US", {
+  return new Date(day).toLocaleDateString("en-US", {
     weekday: "long",
   });
-  return formatedDay;
 }

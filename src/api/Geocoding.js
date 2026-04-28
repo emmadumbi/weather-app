@@ -1,5 +1,6 @@
-const city = "quito";
-export default async function geocoding() {
+import weatherdata from "./WeatherData";
+
+export default async function geocoding(city) {
   const res = await fetch(
     `https://geocoding-api.open-meteo.com/v1/search?name=${city}`,
   );
@@ -16,5 +17,6 @@ export default async function geocoding() {
 
   const { longitude, latitude, name, country } = data.results[0];
 
-  return { longitude, latitude, name, country };
+  const weatherData = await weatherdata(longitude, latitude);
+  return { weatherData, name, country };
 }

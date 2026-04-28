@@ -1,5 +1,4 @@
 import search from "./Search";
-import weatherinfos from "./WeatherInfos";
 
 export default function main() {
   return /*html*/ `
@@ -8,7 +7,12 @@ export default function main() {
             How's the sky looking today?
         </h1>
         ${search()}
-        ${weatherinfos()}
+        <section>
+            <div id="current-city"></div>
+            <div id="daily-forecast"></div>
+            <div id="hour-forecast"></div>
+        </section>
+        
     </main>
     `;
 }

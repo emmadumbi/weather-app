@@ -1,34 +1,29 @@
-import dailyforecast from "./DailyForecast";
-import sunIcon from "../src/assets/images/icon-sunny.webp";
-import geocoding from "../src/api/Geocoding";
-import weatherdata from "../src/api/WeatherData";
-import { roundUpValue } from "../src/utils/utils";
+import sunIcon from "../assets/images/icon-sunny.webp";
 
-const { name, country } = await geocoding();
-const data = await weatherdata();
+import { roundUpValue } from "../utils/utils";
 
-const {
-  apparent_temperature,
-  precipitation,
-  relative_humidity_2m,
-  temperature_2m,
-  wind_speed_10m,
-  time,
-} = data.current;
+export default function currentcity(data) {
+  const {
+    apparent_temperature,
+    precipitation,
+    relative_humidity_2m,
+    temperature_2m,
+    wind_speed_10m,
+    time,
+  } = data.weatherData.current;
 
-const formateDate = new Date(time).toLocaleDateString("en-US", {
-  weekday: "long",
-  month: "long",
-  day: "numeric",
-  year: "numeric",
-});
+  const formateDate = new Date(time).toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
 
-export default function currentcity() {
   return /*html*/ `
         <section>
             <div class="current_city-card">
                 <div class="flex flex-col items-center gap-y-2">
-                    <h2 class="text-[30px] text-center font-bold leading-tight">${name}, ${country}</h2>
+                    <h2 class="text-[30px] text-center font-bold leading-tight">${data.name}, ${data.country}</h2>
                     <p class="text-[18px] text-myneutral-200">${formateDate}</p>
                 </div> 
                 <div class="flex items-center gap-5">
@@ -62,7 +57,6 @@ export default function currentcity() {
                     </div>
                 </div>
             </div>
-            ${dailyforecast()}
         </section>
 
     `;

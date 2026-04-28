@@ -1,4 +1,5 @@
-import headerIcon from "../src/assets/images/logo.svg";
+// import headerIcon from "../src/assets/images/logo.svg";
+import headerIcon from "../assets/images/logo.svg";
 
 export default function header() {
   return /*html*/ `

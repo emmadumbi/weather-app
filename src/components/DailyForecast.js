@@ -1,20 +1,16 @@
-import weatherdata from "../src/api/WeatherData";
-import { getWeatherIcon, roundUpValue } from "../src/utils/utils";
+import { getWeatherIcon, roundUpValue } from "../utils/utils";
 
-const data = await weatherdata();
+export default function dailyforecast(data) {
+  const { temperature_2m_max, temperature_2m_min, time, weather_code } =
+    data.weatherData.daily;
 
-console.log(data);
+  const weatherCard = time
+    .map((date, i) => {
+      const day = new Date(date).toLocaleDateString("en-US", {
+        weekday: "short",
+      });
 
-const { temperature_2m_max, temperature_2m_min, time, weather_code } =
-  data.daily;
-
-const weatherCard = time
-  .map((date, i) => {
-    const day = new Date(date).toLocaleDateString("en-US", {
-      weekday: "short",
-    });
-
-    return /*html*/ `
+      return /*html*/ `
         <div class="bg-myneutral-800 flex flex-col items-center rounded-small px-2 pt-3 space-y-3 pb-4">
             <p class="text-[18px]">${day}</p>
             <span>
@@ -26,10 +22,9 @@ const weatherCard = time
             </div>
         </div>
     `;
-  })
-  .join("");
+    })
+    .join("");
 
-export default function dailyforecast() {
   return /*html*/ `
         <section class="mt-7">
             <h3 class="text-[20px]">Daily forecast</h3>
