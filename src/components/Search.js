@@ -1,7 +1,7 @@
 import SearchIcon from "../assets/images/icon-search.svg";
 import geocoding from "../api/Geocoding";
 
-const defaultCity = "abbi";
+const defaultCity = "berlin";
 
 export async function getWeatherData(city = defaultCity) {
   const data = await geocoding(city);
